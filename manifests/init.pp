@@ -1,6 +1,6 @@
 class phantomjs (
   $package_version = '1.9.2', # set package version to download
-  $source_url = "https://phantomjs.googlecode.com/files/phantomjs-$package_version-linux-x86_64.tar.bz2"
+  $source_url = "https://phantomjs.googlecode.com/files/phantomjs-$package_version-linux-x86_64.tar.bz2",
   $source_dir = '/opt',
   $install_dir = '/usr/local/bin',
   $package_update = false,
