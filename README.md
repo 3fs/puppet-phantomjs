@@ -12,3 +12,5 @@ Using
 		install_dir => '/usr/local/bin',
 		source_dir => '/opt',
 	}
+
+Simple puppet module that installs PhantomJS
