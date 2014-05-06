@@ -37,7 +37,7 @@ class phantomjs (
       && mv ${source_dir}/phantomjs-${package_version}-linux-x86_64/* ${source_dir}/phantomjs/ \
       && rm -rf ${source_dir}/phantomjs-${package_version}-linux-x86_64",
     creates => "${source_dir}/phantomjs/",
-    require => Package['curl', 'bzip2'],
+    require => Package['curl', 'bzip2', 'libfontconfig1'],
   }
 
   file { "${install_dir}/phantomjs":
