@@ -1,4 +1,4 @@
-# Base class for phatomjs module
+# Base class for phantomjs module
 class phantomjs (
   $package_version = '1.9.2',
   $source_url = 'UNSET',
