@@ -6,11 +6,11 @@ Simple puppet module that installs PhantomJS - headless WebKit scriptable with a
 Using
 -----
 
-	class { 'phantomjs': 
-		package_version => '1.0.3',
+	class { 'phantomjs':
+		package_version => '1.9.2',
 		package_update => true,
 		install_dir => '/usr/local/bin',
 		source_dir => '/opt',
 	}
 
-Simple puppet module that installs PhantomJS
+The module pulls in *curl*, *bzip2* and *libfontconfig1* if you haven't defined those packages yourself.
