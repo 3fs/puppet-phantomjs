@@ -20,7 +20,7 @@ class phantomjs (
   }
 
   if ! defined(Package['bzip2']) {
-    package { 'curl':
+    package { 'bzip2':
       ensure => present
     }
   }
