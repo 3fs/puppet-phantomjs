@@ -1,7 +1,7 @@
 # Base class for phantomjs module
 class phantomjs (
-  $package_version = '1.9.2',
-  $source_url = 'UNSET',
+  $package_version = '1.9.7',
+  $source_url = undef,
   $source_dir = '/opt',
   $install_dir = '/usr/local/bin',
   $package_update = false,
@@ -9,7 +9,7 @@ class phantomjs (
 ) {
 
   $pkg_src_url = $source_url ? {
-    'UNSET' => "https://phantomjs.googlecode.com/files/phantomjs-${package_version}-linux-x86_64.tar.bz2",
+    undef   => "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${package_version}-linux-x86_64.tar.bz2",
     default => $source_url,
   }
 
