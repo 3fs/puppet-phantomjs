@@ -8,11 +8,7 @@ class phantomjs (
 
 ) {
 
-  $pkg_src_url = $source_url ? {
-    undef   => "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${package_version}-linux-x86_64.tar.bz2",
-    default => $source_url,
-  }
-
+  # Base requirements
   if ! defined(Package['curl']) {
     package { 'curl':
       ensure => present
@@ -25,10 +21,61 @@ class phantomjs (
     }
   }
 
-  if ! defined(Package['libfontconfig1']) {
-    package { 'libfontconfig1':
-      ensure => present
+  # Ensure packages based on operating system exist
+  case $::operatingsystem {
+    /(?:CentOS|RedHat|Scientific)/: {
+      # Requirements for CentOS/RHEL according to phantomjs.org
+      if ! defined(Package['fontconfig']) {
+        package { 'fontconfig':
+          ensure => present
+        }
+      }
+
+      if ! defined(Package['freetype']) {
+        package { 'freetype':
+          ensure => present
+        }
+      }
+
+      if ! defined(Package['libstdc++']) {
+        package { 'libstdc++':
+          ensure => present
+        }
+      }
+
+      if ! defined(Package['urw-fonts']) {
+        package { 'urw-fonts':
+          ensure => present
+        }
+      }
+
+      $packages = [
+        Package['curl'],
+        Package['bzip2'],
+        Package['fontconfig'],
+        Package['freetype'],
+        Package['libstdc++'],
+        Package['urw-fonts']
+      ]
     }
+    default: {
+      if ! defined(Package['libfontconfig1']) {
+        package { 'libfontconfig1':
+          ensure => present
+        }
+      }
+
+      $packages = [
+        Package['curl'],
+        Package['bzip2'],
+        Package['libfontconfig1']
+      ]
+    }
+  }
+
+  $pkg_src_url = $source_url ? {
+    undef   => "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${package_version}-linux-x86_64.tar.bz2",
+    default => $source_url,
   }
 
   exec { 'get phantomjs':
@@ -37,7 +84,7 @@ class phantomjs (
       && mv ${source_dir}/phantomjs-${package_version}-linux-x86_64/* ${source_dir}/phantomjs/ \
       && rm -rf ${source_dir}/phantomjs-${package_version}-linux-x86_64",
     creates => "${source_dir}/phantomjs/",
-    require => Package['curl', 'bzip2', 'libfontconfig1'],
+    require => $packages
   }
 
   file { "${install_dir}/phantomjs":
