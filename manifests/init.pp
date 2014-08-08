@@ -80,9 +80,8 @@ class phantomjs (
 
   exec { 'get phantomjs':
     command => "/usr/bin/curl --silent --show-error --location ${pkg_src_url} --output ${source_dir}/phantomjs.tar.bz2 \
-      && mkdir ${source_dir}/phantomjs && tar xjf ${source_dir}/phantomjs.tar.bz2 -C ${source_dir} \
-      && mv ${source_dir}/phantomjs-${package_version}-linux-x86_64/* ${source_dir}/phantomjs/ \
-      && rm -rf ${source_dir}/phantomjs-${package_version}-linux-x86_64",
+      && mkdir ${source_dir}/phantomjs \
+      && tar --extract --file=${source_dir}/phantomjs.tar.bz2 --strip-components=1 --directory=${source_dir}/phantomjs",
     creates => "${source_dir}/phantomjs/",
     require => $packages
   }
