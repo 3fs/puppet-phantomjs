@@ -9,6 +9,10 @@ class phantomjs (
 ) {
 
   # Base requirements
+  if $::kernel != 'Linux' {
+    fail('This module is supported only on Linux.')
+  }
+
   if ! defined(Package['curl']) {
     package { 'curl':
       ensure => present
