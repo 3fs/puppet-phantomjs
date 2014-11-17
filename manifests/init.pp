@@ -9,6 +9,10 @@ class phantomjs (
 ) {
 
   # Base requirements
+  if $::kernel != 'Linux' {
+    fail('This module is supported only on Linux.')
+  }
+
   if ! defined(Package['curl']) {
     package { 'curl':
       ensure => present
@@ -74,7 +78,7 @@ class phantomjs (
   }
 
   $pkg_src_url = $source_url ? {
-    undef   => "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${package_version}-linux-x86_64.tar.bz2",
+    undef   => "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${package_version}-linux-${hardwaremodel}.tar.bz2",
     default => $source_url,
   }
 
