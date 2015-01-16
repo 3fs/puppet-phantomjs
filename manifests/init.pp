@@ -27,7 +27,7 @@ class phantomjs (
 
   # Ensure packages based on operating system exist
   case $::operatingsystem {
-    /(?:CentOS|RedHat|Scientific)/: {
+    /(?:CentOS|RedHat|Amazon|Scientific)/: {
       # Requirements for CentOS/RHEL according to phantomjs.org
       if ! defined(Package['fontconfig']) {
         package { 'fontconfig':
@@ -41,8 +41,14 @@ class phantomjs (
         }
       }
 
-      if ! defined(Package['libstdc++']) {
-        package { 'libstdc++':
+      if $::operatingsystem == 'Amazon' {
+        $libstdc_package = 'compat-libstdc++-33'
+      } else {
+        $libstdc_package = 'libstdc++'
+      }
+
+      if ! defined(Package[$libstdc_package]) {
+        package { $libstdc_package:
           ensure => present
         }
       }
@@ -58,7 +64,7 @@ class phantomjs (
         Package['bzip2'],
         Package['fontconfig'],
         Package['freetype'],
-        Package['libstdc++'],
+        Package[$libstdc_package],
         Package['urw-fonts']
       ]
     }
@@ -78,7 +84,7 @@ class phantomjs (
   }
 
   $pkg_src_url = $source_url ? {
-    undef   => "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${package_version}-linux-${hardwaremodel}.tar.bz2",
+    undef   => "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${package_version}-linux-${::hardwaremodel}.tar.bz2",
     default => $source_url,
   }
 
