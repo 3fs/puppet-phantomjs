@@ -1,5 +1,5 @@
 name '3fs-phantomjs'
-version '0.0.5'
+version '0.0.6'
 source 'https://github.com/3fs/puppet-phantomjs'
 author '3fs'
 license 'MIT License'
