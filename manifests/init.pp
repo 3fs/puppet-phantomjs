@@ -27,7 +27,7 @@ class phantomjs (
 
   # Ensure packages based on operating system exist
   case $::operatingsystem {
-    /(?:CentOS|RedHat|Scientific)/: {
+    /(?:CentOS|RedHat|Amazon|Scientific)/: {
       # Requirements for CentOS/RHEL according to phantomjs.org
       if ! defined(Package['fontconfig']) {
         package { 'fontconfig':
