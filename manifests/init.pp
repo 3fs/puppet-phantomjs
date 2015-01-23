@@ -5,7 +5,7 @@ class phantomjs (
   $source_dir = '/opt',
   $install_dir = '/usr/local/bin',
   $package_update = false,
-
+  $timeout = 300
 ) {
 
   # Base requirements
@@ -93,7 +93,8 @@ class phantomjs (
       && mkdir ${source_dir}/phantomjs \
       && tar --extract --file=${source_dir}/phantomjs.tar.bz2 --strip-components=1 --directory=${source_dir}/phantomjs",
     creates => "${source_dir}/phantomjs/",
-    require => $packages
+    require => $packages,
+    timeout => $timeout
   }
 
   file { "${install_dir}/phantomjs":

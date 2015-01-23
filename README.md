@@ -11,6 +11,7 @@ Using
 		package_update => true,
 		install_dir => '/usr/local/bin',
 		source_dir => '/opt',
+		timeout => 300
 	}
 
 The module pulls in *curl*, *bzip2* and *libfontconfig1* if you haven't defined those packages yourself.
