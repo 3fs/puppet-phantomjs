@@ -1,6 +1,6 @@
 {
   "name": "3fs-phantomjs",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "author": "3fs",
   "summary": "Simple puppet module that installs PhantomJS - headless WebKit scriptable with a Javascript API.",
   "license": "MIT",
