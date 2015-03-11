@@ -6,7 +6,7 @@ Simple puppet module that installs PhantomJS - headless WebKit scriptable with a
 Using
 -----
 
-	class { 'phantomjs':
+	class { '::phantomjs':
 		package_version => '1.9.7',
 		package_update => true,
 		install_dir => '/usr/local/bin',
@@ -15,3 +15,4 @@ Using
 	}
 
 The module pulls in *curl*, *bzip2* and *libfontconfig1* if you haven't defined those packages yourself.
+This module depends on puppetlabs/stdlib 4.x module.
