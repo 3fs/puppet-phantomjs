@@ -13,33 +13,15 @@ class phantomjs (
     fail('This module is supported only on Linux.')
   }
 
-  if ! defined(Package['curl']) {
-    package { 'curl':
-      ensure => present
-    }
-  }
-
-  if ! defined(Package['bzip2']) {
-    package { 'bzip2':
-      ensure => present
-    }
-  }
+  ensure_packages('curl')
+  ensure_packages('bzip2')
 
   # Ensure packages based on operating system exist
   case $::operatingsystem {
     /(?:CentOS|RedHat|Amazon|Scientific)/: {
       # Requirements for CentOS/RHEL according to phantomjs.org
-      if ! defined(Package['fontconfig']) {
-        package { 'fontconfig':
-          ensure => present
-        }
-      }
-
-      if ! defined(Package['freetype']) {
-        package { 'freetype':
-          ensure => present
-        }
-      }
+      ensure_packages('fontconfig')
+      ensure_packages('freetype')
 
       if $::operatingsystem == 'Amazon' {
         $libstdc_package = 'compat-libstdc++-33'
@@ -47,17 +29,8 @@ class phantomjs (
         $libstdc_package = 'libstdc++'
       }
 
-      if ! defined(Package[$libstdc_package]) {
-        package { $libstdc_package:
-          ensure => present
-        }
-      }
-
-      if ! defined(Package['urw-fonts']) {
-        package { 'urw-fonts':
-          ensure => present
-        }
-      }
+      ensure_packages($libstdc_package)
+      ensure_packages('urw-fonts')
 
       $packages = [
         Package['curl'],
@@ -69,12 +42,7 @@ class phantomjs (
       ]
     }
     default: {
-      if ! defined(Package['libfontconfig1']) {
-        package { 'libfontconfig1':
-          ensure => present
-        }
-      }
-
+      ensure_packages('libfontconfig1')
       $packages = [
         Package['curl'],
         Package['bzip2'],
