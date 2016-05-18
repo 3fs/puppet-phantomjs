@@ -57,7 +57,7 @@ class phantomjs (
   }
 
   exec { 'get phantomjs':
-    command => "/usr/bin/curl --silent --show-error --location ${pkg_src_url} --output ${source_dir}/phantomjs.tar.bz2 \
+    command => "/usr/bin/curl --silent --show-error --fail --location ${pkg_src_url} --output ${source_dir}/phantomjs.tar.bz2 \
       && mkdir ${source_dir}/phantomjs \
       && tar --extract --file=${source_dir}/phantomjs.tar.bz2 --strip-components=1 --directory=${source_dir}/phantomjs",
     creates => "${source_dir}/phantomjs/",
